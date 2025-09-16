@@ -1,0 +1,43 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: ecommerce
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+app:
+  mail-template-directory: src/main/resources/static/templates/emails/
+  auth:
+    secret-key: ${APP_SECURITY_KEY}
+  swagger:
+    title: Ecommerce api
+    version: 1
+  upload-dir: ./uploads/
+  zarinpal:
+    init-request: https://sandbox.zarinpal.com/pg/v4/payment/request.json
+    callback-url: http://localhost:8080/api/payments/status
+    verify-request: https://sandbox.zarinpal.com/pg/v4/payment/verify.json
+    merchant-id: 23e49130-27cc-42a5-a294-689c9a83462e
+    email-supporter: ${EMAIL_SUPPORTER}
+    mobile-supporter: ${MOBILE_SUPPORTER}
+    pay-link: https://sandbox.zarinpal.com/pg/StartPay
